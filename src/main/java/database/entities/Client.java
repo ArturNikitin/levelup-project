@@ -32,6 +32,4 @@ public class Client implements Serializable {
 
     @OneToMany
     private List<Item> items;
-
-
 }
