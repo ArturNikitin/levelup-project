@@ -15,7 +15,7 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    public void insertClient(String login, String email, String password) {
+    public Client insertClient(String login, String email, String password) {
         Client client = new Client();
         client.setLogin(login);
         client.setEmail(email);
@@ -23,6 +23,7 @@ public class ClientDAOImpl implements ClientDAO {
         entityManager.getTransaction().begin();
         entityManager.persist(client);
         entityManager.getTransaction().commit();
+        return client;
     }
     @Override
     public void removeClientById(int id){

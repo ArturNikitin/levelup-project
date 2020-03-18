@@ -10,40 +10,37 @@ import javax.persistence.Persistence;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientDAOImplTest {
-    private EntityManagerFactory factory;
-    private EntityManager manager;
+    static EntityManager manager;
+    static EntityManagerFactory factory;
+    static ClientDAOImpl clientDAO;
 
-
-    @BeforeEach
-    void setUp() {
-        factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
+    @BeforeAll
+    static void setUp() {
+        factory = Persistence.createEntityManagerFactory("PostgresPersistenceUnitTest");
         manager = factory.createEntityManager();
+        clientDAO = new ClientDAOImpl(manager);
     }
 
-    @AfterEach
-    void tearDown() {
-        if (manager != null) {
+    @AfterAll
+    static void tearDown() {
+        if(manager != null){
             manager.close();
         }
-        if (factory != null) {
+        if (factory != null){
             factory.close();
         }
     }
 
     @Test
-    public void insertClient() {
-        String name = "name";
-        String password = "pass";
-        String email = "email";
+    void insertClient_ValidParameters() {
+        String login = "name";
+        String password = "1234";
+        String email = "name@gmail.com";
 
-        Client client = new Client();
-        client.setLogin(name);
-        client.setEmail(email);
-        client.setPassword(password);
-
-        manager.getTransaction().begin();
-        manager.persist(client);
-        manager.getTransaction().commit();
+        Client client = clientDAO.insertClient(login, email, password);
+        assertEquals(login, client.getLogin());
+        assertEquals(password, client.getPassword());
+        assertEquals(email, client.getEmail());
     }
 
     @Test
