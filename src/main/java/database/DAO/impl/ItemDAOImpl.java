@@ -78,7 +78,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item setItemSold(Item item) {
-        item.setStatus(ClothingStatus.SOLD);
+        item.setStatus(ClothingStatus.SOLD_OUT);
 
         manager.getTransaction().begin();
         try {
@@ -138,5 +138,21 @@ public class ItemDAOImpl implements ItemDAO {
         } catch (NoResultException cause){
             return null;
         }
+    }
+
+    @Override
+    public Item approveItem(Item item) {
+        item.setStatus(ClothingStatus.AVAILABLE_AND_APPROVED);
+
+        manager.getTransaction().begin();
+        try {
+            manager.merge(item);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+
+        return item;
     }
 }

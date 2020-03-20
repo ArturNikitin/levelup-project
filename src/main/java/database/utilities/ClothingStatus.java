@@ -2,6 +2,7 @@ package database.utilities;
 
 public enum ClothingStatus {
     AVAILABLE,
-    SOLD,
-    ORDERED
+    SOLD_OUT,
+    ORDERED,
+    AVAILABLE_AND_APPROVED
 }

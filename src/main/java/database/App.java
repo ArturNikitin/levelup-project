@@ -9,6 +9,7 @@ import database.DAO.impl.ItemDAOImpl;
 import database.DAO.impl.OrderDAOImpl;
 import database.DAO.impl.UserDAOImpl;
 import database.entities.Item;
+import database.entities.Order;
 import database.entities.User;
 import database.utilities.Price;
 import database.utilities.UserAddress;
@@ -26,7 +27,7 @@ public class App {
         OrderDAO orderDAO = new OrderDAOImpl(manager);
         ItemDAO itemDAO = new ItemDAOImpl(manager);
 
-//        User user = userDAO.insertUser("Artur32", "Artur32@gmail.com", "1234");
+//        User user = userDAO.insertUser("Artur", "Artur@gmail.com", "1234");
 //        userDAO.updateAddress(userDAO.findUserByLogin("Artur"), new UserAddress("Russia", "SPb", "9 sovetskaya dom 10 kv 15", 194785));
 //        userDAO.updateUserPassword(userDAO.findUserByLogin("Artur"), "12345678", "123456789");
 //        System.out.println(userDAO.validatePassword(userDAO.findUserByLogin("Artur"), "123456789"));
@@ -39,6 +40,7 @@ public class App {
 
 //       List<Item> items = userDAO.findUserByLogin("Artur").getItems();
 //       items.forEach(ex -> System.out.println(ex.getName()));
+
 
 
 

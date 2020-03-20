@@ -1,6 +1,7 @@
 package database.entities;
 
 
+import database.utilities.DateConverter;
 import database.utilities.OrderStatus;
 import database.utilities.UserAddress;
 import database.utilities.UserAddressConverter;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -31,6 +33,10 @@ public class Order {
     @Column(name = "Order_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @Column(name = "Purchased_date")
+    @Convert(converter = DateConverter.class)
+    private Date date;
 
     @ManyToOne(optional = true)
     private User user;

@@ -36,6 +36,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ClothingStatus status;
 
+
     @ManyToOne(optional = false)
     private User user;
 

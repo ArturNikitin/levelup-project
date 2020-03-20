@@ -15,4 +15,5 @@ public interface ItemDAO {
     Item setItemOrdered(Item item);
     Item findItemById(int id);
     Item findItemByName(String name);
+    Item approveItem(Item item);
 }
