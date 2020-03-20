@@ -1,14 +1,15 @@
 package database.entities;
 
 
+import database.utilities.ClothingStatus;
+import database.utilities.ClothingType;
+import database.utilities.Price;
+import database.utilities.PriceConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,15 +17,29 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 public class Item {
     @Id
+    @Column
     @GeneratedValue
     private int id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToOne
-    private Client client;
+    @Column(nullable = false)
+    @Convert(converter = PriceConverter.class)
+    private Price price;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ClothingType type;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ClothingStatus status;
+
+    @ManyToOne(optional = false)
+    private User user;
 
     @ManyToOne
-    private PurchaseOrder order;
+    private Order order;
 
 }

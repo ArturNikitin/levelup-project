@@ -1,0 +1,119 @@
+package database.DAO.impl;
+
+import database.DAO.UserDAO;
+import database.entities.User;
+import database.utilities.UserAddress;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import java.util.Objects;
+
+public class UserDAOImpl implements UserDAO {
+    private EntityManager manager;
+
+    public UserDAOImpl(EntityManager manager) {
+        Objects.requireNonNull(manager, "Entity manager can't be null");
+        this.manager = manager;
+    }
+
+
+//    Checked
+    @Override
+    public User findUserByLogin(String login) {
+        try {
+            return manager.createQuery("from User u where u.login= :searchLogin", User.class)
+                    .setParameter("searchLogin", login)
+                    .getSingleResult();
+        } catch (NoResultException cause){
+            return null;
+        }
+    }
+
+//    Checked
+    @Override
+    public User insertUser(String login, String email, String password) {
+        User user = new User();
+        user.setLogin(login);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        manager.getTransaction().begin();
+        try {
+            manager.persist(user);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+
+        return user;
+    }
+
+//    Checked
+    @Override
+    public User updateAddress(User user, UserAddress address) {
+        Objects.requireNonNull(address, "address can't be null");
+
+        user.setAddress(address);
+
+        manager.getTransaction().begin();
+        try {
+            manager.merge(user);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+
+        return user;
+    }
+
+//   Checked
+    @Override
+    public User updateUserPassword(User user, String password, String newPassword) {
+        Objects.requireNonNull(newPassword, "New password can't be null");
+
+
+        if(!user.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Password is incorrect");
+        }
+
+        user.setPassword(newPassword);
+
+        manager.getTransaction().begin();
+        try {
+            manager.merge(user);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+
+        return user;
+    }
+
+//  Checked
+    @Override
+    public void removeUser(User user, String password) {
+
+        if(!user.getPassword().equals(password)){
+            throw new IllegalArgumentException("Password is incorrect");
+        }
+
+        manager.getTransaction().begin();
+        try {
+            manager.remove(user);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+    }
+
+
+//    checked
+    @Override
+    public boolean validatePassword(User user, String password) {
+        return user.getPassword().equals(password);
+    }
+}

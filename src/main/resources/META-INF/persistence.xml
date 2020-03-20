@@ -52,7 +52,7 @@
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="PostgresPersistenceUnitTest">
+    <!--<persistence-unit name="PostgresPersistenceUnitTest">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
@@ -67,5 +67,5 @@
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
         </properties>
-    </persistence-unit>
+    </persistence-unit>-->
 </persistence>
