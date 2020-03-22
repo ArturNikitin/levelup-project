@@ -39,6 +39,7 @@ public class Item {
     private ClothingSize size;
 
     @Column(name = "Image")
+    @Convert(converter = FileConverter.class)
     private File file;
 
 
