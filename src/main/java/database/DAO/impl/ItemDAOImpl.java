@@ -11,6 +11,7 @@ import database.utilities.Price;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.io.File;
 import java.util.Objects;
 
 public class ItemDAOImpl implements ItemDAO {
@@ -96,24 +97,8 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item setItemAvailable(Item item) {
-        item.setStatus(ClothingStatus.AVAILABLE);
-
-        manager.getTransaction().begin();
-        try {
-            manager.merge(item);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
-        return item;
-    }
-
-    @Override
-    public Item setItemOrdered(Item item) {
-        item.setStatus(ClothingStatus.ORDERED);
+    public Item setItemStatus(Item item, ClothingStatus status) {
+        item.setStatus(status);
 
         manager.getTransaction().begin();
         try {
@@ -144,8 +129,24 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item approveItem(Item item) {
-        item.setStatus(ClothingStatus.AVAILABLE_AND_APPROVED);
+    public Item changeSize(Item item, ClothingSize size) {
+        item.setSize(size);
+
+        manager.getTransaction().begin();
+        try {
+            manager.merge(item);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+
+        return item;
+    }
+
+    @Override
+    public Item addImage(Item item, File file) {
+        item.setFile(file);
 
         manager.getTransaction().begin();
         try {

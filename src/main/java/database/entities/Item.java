@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Data
 @Entity
@@ -36,6 +37,9 @@ public class Item {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ClothingSize size;
+
+    @Column(name = "Image")
+    private File file;
 
 
     @ManyToOne(optional = false)
