@@ -18,7 +18,6 @@ public class OrderDAOImpl implements OrderDAO {
         this.manager = manager;
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public Order createOrder(User user) {
         Order order = new Order();
@@ -26,7 +25,6 @@ public class OrderDAOImpl implements OrderDAO {
         order.setUser(user);
         order.setEmail(user.getEmail());
         order.setAddress(user.getAddress());
-        order.setDate(new Date());
 
         manager.getTransaction().begin();
         try {

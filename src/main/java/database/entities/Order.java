@@ -35,7 +35,7 @@ public class Order {
 
     @Column(name = "Purchased_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date date = new Date();
 
     @ManyToOne(optional = true)
     private User user;
