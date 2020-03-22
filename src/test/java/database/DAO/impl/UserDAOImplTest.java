@@ -29,10 +29,10 @@ class UserDAOImplTest {
 
     @AfterEach
     void tearDown() {
-        if(manager != null){
+        if (manager != null) {
             manager.close();
         }
-        if (factory != null){
+        if (factory != null) {
             factory.close();
         }
     }
@@ -71,22 +71,22 @@ class UserDAOImplTest {
     }
 
     @Test
-    void insertUserDuplicate(){
+    void insertUserDuplicate() {
         String login = "user3";
         String email = "Use3@gmail.com";
         String password = "1234";
         User user = userDAO.insertUser(login, email, password);
 
-        try{
+        try {
             User duplicate = userDAO.insertUser(login, "random@gmail.com", password);
             fail("insertUser should fail for same login");
-        } catch (PersistenceException exp){
+        } catch (PersistenceException exp) {
         }
 
-        try{
+        try {
             User duplicate = userDAO.insertUser("randomName", email, password);
             fail("insertUser should fail for same email");
-        } catch (PersistenceException exp){
+        } catch (PersistenceException exp) {
         }
 
     }
@@ -147,7 +147,7 @@ class UserDAOImplTest {
         try {
             User updated = userDAO.updateUserPassword(user, "11", newPassword);
             fail("updateUserPassword should fail for wrong password");
-        } catch (Exception exp){
+        } catch (Exception exp) {
 
         }
     }
@@ -173,7 +173,7 @@ class UserDAOImplTest {
     }
 
     @Test
-    void removeUserIncorrectPassword(){
+    void removeUserIncorrectPassword() {
         String login = "user6";
         String email = "User6@gmail.com";
         String password = "12345";
@@ -188,7 +188,7 @@ class UserDAOImplTest {
         try {
             userDAO.removeUser(user, "password");
             fail("removeUser should fail for wrong password");
-        } catch (IllegalArgumentException exp){
+        } catch (IllegalArgumentException exp) {
 
         }
 

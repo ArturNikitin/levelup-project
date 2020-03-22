@@ -8,7 +8,7 @@ import database.utilities.UserAddress;
 
 
 public interface OrderDAO {
-    Order createOrder(User user);
+    Order createOrderWithUser(User user);
     Order createOrder(String email, UserAddress address);
     Order cancelOrder(int id);
     Order updateStatusToShipped(int id);

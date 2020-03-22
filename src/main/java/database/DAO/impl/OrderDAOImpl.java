@@ -10,6 +10,7 @@ import database.utilities.UserAddress;
 import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderDAOImpl implements OrderDAO {
     private EntityManager manager;
@@ -19,7 +20,8 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order createOrder(User user) {
+    public Order createOrderWithUser(User user) {
+        Objects.requireNonNull(user.getAddress());
         Order order = new Order();
         order.setStatus(OrderStatus.PROCESSING);
         order.setUser(user);

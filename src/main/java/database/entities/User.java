@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -43,5 +44,24 @@ public class User {
         this.login = login;
         this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(orders, user.orders) &&
+                Objects.equals(items, user.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, email, address, orders, items);
     }
 }

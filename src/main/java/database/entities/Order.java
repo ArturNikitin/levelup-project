@@ -33,7 +33,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(name = "Purchased_date")
+    @Column(name = "Purchased_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date = new Date();
 
