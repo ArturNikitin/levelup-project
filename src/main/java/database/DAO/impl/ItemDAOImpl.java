@@ -81,22 +81,6 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item setItemSold(Item item) {
-        item.setStatus(ClothingStatus.SOLD_OUT);
-
-        manager.getTransaction().begin();
-        try {
-            manager.merge(item);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
-        return item;
-    }
-
-    @Override
     public Item setItemStatus(Item item, ClothingStatus status) {
         item.setStatus(status);
 
@@ -112,10 +96,6 @@ public class ItemDAOImpl implements ItemDAO {
         return item;
     }
 
-    @Override
-    public Item findItemById(int id) {
-        return manager.find(Item.class, id);
-    }
 
     @Override
     public Item findItemByName(String name) {
@@ -147,6 +127,22 @@ public class ItemDAOImpl implements ItemDAO {
     @Override
     public Item addImage(Item item, File file) {
         item.setFile(file);
+
+        manager.getTransaction().begin();
+        try {
+            manager.merge(item);
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+
+        return item;
+    }
+
+    @Override
+    public Item addDescription(Item item, String description) {
+        item.setDescription(description);
 
         manager.getTransaction().begin();
         try {

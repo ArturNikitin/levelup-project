@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -19,14 +20,14 @@ public class Item {
     @GeneratedValue
     private int id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
     @Column(nullable = false)
     @Convert(converter = PriceConverter.class)
     private Price price;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ClothingType type;
 
@@ -42,6 +43,9 @@ public class Item {
     @Convert(converter = FileConverter.class)
     private File file;
 
+    @Column(name = "Item_Description")
+    private String description;
+
 
     @ManyToOne(optional = false)
     private User user;
@@ -49,4 +53,33 @@ public class Item {
     @ManyToOne
     private Order order;
 
+    public Item(String name, Price price, ClothingType type, ClothingSize size, User user) {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.size = size;
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return id == item.id &&
+                Objects.equals(name, item.name) &&
+                Objects.equals(price, item.price) &&
+                type == item.type &&
+                status == item.status &&
+                size == item.size &&
+                Objects.equals(file, item.file) &&
+                Objects.equals(description, item.description) &&
+                Objects.equals(user, item.user) &&
+                Objects.equals(order, item.order);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, type, status, size, file, description, user, order);
+    }
 }
