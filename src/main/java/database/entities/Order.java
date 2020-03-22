@@ -1,7 +1,6 @@
 package database.entities;
 
 
-import database.utilities.DateConverter;
 import database.utilities.OrderStatus;
 import database.utilities.UserAddress;
 import database.utilities.UserAddressConverter;
@@ -35,7 +34,7 @@ public class Order {
     private OrderStatus status;
 
     @Column(name = "Purchased_date")
-    @Convert(converter = DateConverter.class)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @ManyToOne(optional = true)
