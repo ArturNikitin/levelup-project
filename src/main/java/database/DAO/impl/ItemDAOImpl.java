@@ -4,6 +4,7 @@ import database.DAO.ItemDAO;
 import database.entities.Item;
 import database.entities.Order;
 import database.entities.User;
+import database.utilities.ClothingSize;
 import database.utilities.ClothingStatus;
 import database.utilities.ClothingType;
 import database.utilities.Price;
@@ -20,12 +21,14 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item createItem(User user, String name, Price price) {
+    public Item createItem(User user, String name, Price price, ClothingSize size, ClothingType type) {
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);
         item.setUser(user);
         item.setStatus(ClothingStatus.AVAILABLE);
+        item.setSize(size);
+        item.setType(type);
 
         manager.getTransaction().begin();
         try {

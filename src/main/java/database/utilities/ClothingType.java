@@ -9,5 +9,7 @@ public enum ClothingType {
     SOCKS,
     JACKET,
     SHIRT,
-    T_SHIRT
+    T_SHIRT,
+    OTHER,
+    ACCESSORY
 }

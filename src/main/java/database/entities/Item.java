@@ -1,10 +1,7 @@
 package database.entities;
 
 
-import database.utilities.ClothingStatus;
-import database.utilities.ClothingType;
-import database.utilities.Price;
-import database.utilities.PriceConverter;
+import database.utilities.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +32,10 @@ public class Item {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ClothingStatus status;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ClothingSize size;
 
 
     @ManyToOne(optional = false)
