@@ -51,8 +51,8 @@ public class UserDAOImpl implements UserDAO {
 
 //    Checked
     @Override
-    public User updateAddress(User user, UserAddress address) {
-        Objects.requireNonNull(address, "address can't be null");
+    public User addAddress(User user, String country, String city, String street, int postcode) {
+        UserAddress address = new UserAddress(country, city, street, postcode);
 
         user.setAddress(address);
 

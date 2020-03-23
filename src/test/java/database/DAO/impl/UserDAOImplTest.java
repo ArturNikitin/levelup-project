@@ -2,7 +2,6 @@ package database.DAO.impl;
 
 import database.DAO.UserDAO;
 import database.entities.User;
-import database.utilities.UserAddress;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,21 +92,27 @@ class UserDAOImplTest {
 
     @Test
     void updateAddress() {
-        UserAddress address = new UserAddress("Country1", "City1", "Street 15F124", 156498);
+        String country = "Country";
+        String city = "city";
+        String street = "street";
+        int postcode = 123456;
         User user = new User("login", "email", "password");
 
         manager.getTransaction().begin();
         manager.persist(user);
         manager.getTransaction().commit();
 
-        user.setAddress(address);
+        userDAO.addAddress(user, country, city, street, postcode);
 
         manager.getTransaction().begin();
         manager.merge(user);
         manager.getTransaction().commit();
 
         assertNotNull(user.getAddress());
-        assertEquals(address, user.getAddress());
+        assertEquals(country, user.getAddress().getCountry());
+        assertEquals(city, user.getAddress().getCity());
+        assertEquals(street, user.getAddress().getStreet());
+        assertEquals(postcode, user.getAddress().getPostCode());
     }
 
     @Test
