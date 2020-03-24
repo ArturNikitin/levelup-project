@@ -104,15 +104,13 @@ class UserDAOImplTest {
 
         userDAO.addAddress(user, country, city, street, postcode);
 
-        manager.getTransaction().begin();
-        manager.merge(user);
-        manager.getTransaction().commit();
+        User found = manager.find(User.class, user.getId());
 
-        assertNotNull(user.getAddress());
-        assertEquals(country, user.getAddress().getCountry());
-        assertEquals(city, user.getAddress().getCity());
-        assertEquals(street, user.getAddress().getStreet());
-        assertEquals(postcode, user.getAddress().getPostCode());
+        assertNotNull(found.getAddress());
+        assertEquals(country, found.getAddress().getCountry());
+        assertEquals(city, found.getAddress().getCity());
+        assertEquals(street, found.getAddress().getStreet());
+        assertEquals(postcode, found.getAddress().getPostCode());
     }
 
     @Test
@@ -128,10 +126,6 @@ class UserDAOImplTest {
 
         String newPassword = "12345678";
         User updated = userDAO.updateUserPassword(user, password, newPassword);
-
-        manager.getTransaction().begin();
-        manager.merge(user);
-        manager.getTransaction().commit();
 
         assertNotNull(updated.getPassword());
         assertEquals(newPassword, updated.getPassword());

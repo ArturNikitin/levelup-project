@@ -54,11 +54,10 @@ public class UserDAOImpl implements UserDAO {
     public User addAddress(User user, String country, String city, String street, int postcode) {
         UserAddress address = new UserAddress(country, city, street, postcode);
 
-        user.setAddress(address);
 
         manager.getTransaction().begin();
         try {
-            manager.merge(user);
+            user.setAddress(address);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -78,11 +77,11 @@ public class UserDAOImpl implements UserDAO {
             throw new IllegalArgumentException("Password is incorrect");
         }
 
-        user.setPassword(newPassword);
+
 
         manager.getTransaction().begin();
         try {
-            manager.merge(user);
+            user.setPassword(newPassword);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
