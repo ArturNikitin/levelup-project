@@ -48,11 +48,11 @@ public class ItemDAOImpl implements ItemDAO {
     public Item setType(Item item, ClothingType type) {
         Objects.requireNonNull(type, "address can't be null");
 
-        item.setType(type);
+
 
         manager.getTransaction().begin();
         try {
-            manager.merge(item);
+            item.setType(type);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -66,11 +66,11 @@ public class ItemDAOImpl implements ItemDAO {
     public Item connectToOrder(Item item, Order order) {
         Objects.requireNonNull(order, "address can't be null");
 
-        item.setOrder(order);
+
 
         manager.getTransaction().begin();
         try {
-            manager.merge(item);
+            item.setOrder(order);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -82,11 +82,11 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item setItemStatus(Item item, ClothingStatus status) {
-        item.setStatus(status);
+
 
         manager.getTransaction().begin();
         try {
-            manager.merge(item);
+            item.setStatus(status);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -110,11 +110,11 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item changeSize(Item item, ClothingSize size) {
-        item.setSize(size);
+
 
         manager.getTransaction().begin();
         try {
-            manager.merge(item);
+            item.setSize(size);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -126,11 +126,9 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item addImage(Item item, File file) {
-        item.setFile(file);
-
         manager.getTransaction().begin();
         try {
-            manager.merge(item);
+            item.setFile(file);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -142,11 +140,10 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item addDescription(Item item, String description) {
-        item.setDescription(description);
-
         manager.getTransaction().begin();
         try {
-            manager.merge(item);
+            item.setDescription(description);
+
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
