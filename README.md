@@ -1,6 +1,7 @@
 
 
 #Clothing marketplace
+[![Build Status](https://travis-ci.com/ArturNikitin/levelup-project.svg?branch=master)](https://travis-ci.com/ArturNikitin/levelup-project)
 
 <b>Пользователь:</b>
 
