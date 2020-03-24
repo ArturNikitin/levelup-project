@@ -1,7 +1,6 @@
 package database.DAO.impl;
 
 import database.DAO.OrderDAO;
-import database.entities.Item;
 import database.entities.Order;
 import database.entities.User;
 import database.utilities.OrderStatus;
@@ -9,7 +8,6 @@ import database.utilities.UserAddress;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -63,11 +61,11 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public Order cancelOrder(int id) {
-        Order order = manager.find(Order.class, id);
-        order.setStatus(OrderStatus.CANCELLED);
+        Order order;
         manager.getTransaction().begin();
         try {
-            manager.merge(order);
+            order = manager.find(Order.class, id);
+            order.setStatus(OrderStatus.CANCELLED);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
@@ -80,11 +78,11 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public Order updateStatusToShipped(int id) {
-        Order order = manager.find(Order.class, id);
-        order.setStatus(OrderStatus.SHIPPED);
+        Order order;
         manager.getTransaction().begin();
         try {
-            manager.merge(order);
+            order = manager.find(Order.class, id);
+            order.setStatus(OrderStatus.SHIPPED);
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;
