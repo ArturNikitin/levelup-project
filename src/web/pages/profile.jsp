@@ -8,25 +8,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Profile</title>
+    <title>${sessionScope['verifiedUserName']}</title>
+    <style>
+        #content{
+            text-align: center;
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
 <body>
+<div id="content">
+    <p>Hello, ${sessionScope['verifiedUserName']}.</p>
+    <hr>
+    <form action="profile" method="post" enctype="application/x-www-form-urlencoded">
+        <p>Add your address</p>
+        <p>Country</p>
+        <input type="text" name="country">
+        <p>City</p>
+        <input type="text" name="City">
+        <p>Street</p>
+        <input type="text" name="street">
+        <p>Postcode</p>
+        <input type="text" name="postcode">
+    </form>
+    <form action="profile" method="post" enctype="application/x-www-form-urlencoded">
+        <button type="submit">Logout</button>
+    </form>
+</div>
 
-<p>Hello, ${sessionScope['verifiedUserName']}.</p>
-<hr>
-<form action="profile" method="post" enctype="application/x-www-form-urlencoded">
-    <p>Add your address</p>
-    <p>Country</p>
-    <input type="text" name="country">
-    <p>City</p>
-    <input type="text" name="City">
-    <p>Street</p>
-    <input type="text" name="street">
-    <p>Postcode</p>
-    <input type="text" name="postcode">
-</form>
-<form action="profile" method="post" enctype="application/x-www-form-urlencoded">
-    <button type="submit">Logout</button>
-</form>
 </body>
 </html>

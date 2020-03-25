@@ -1,4 +1,4 @@
-package web;
+package webjava;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login" })
+@WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +24,8 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username != null && password != null && username.equals("test") && password.equals("123")) {
+        if (username != null && password != null && username.equals(req.getSession().getAttribute("regUserName"))
+                && password.equals(req.getSession().getAttribute("regUserPass"))) {
             req.getSession().setAttribute("verifiedUserName", username);
 
             resp.sendRedirect(req.getContextPath());
