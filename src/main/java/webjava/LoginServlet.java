@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null && password != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("verifiedUserName", username);
-
+            req.getSession().removeAttribute("notVerifiedName");
             resp.sendRedirect(req.getContextPath());
         } else {
             req.getSession().setAttribute("notVerifiedName", username);
