@@ -1,5 +1,10 @@
 package webjava;
 
+import database.DAO.UserDAO;
+import database.DAO.impl.UserDAOImpl;
+import database.entities.User;
+
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +29,19 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username != null && password != null && username.equals(req.getSession().getAttribute("regUserName"))
-                && password.equals(req.getSession().getAttribute("regUserPass"))) {
+        EntityManager manager = PersistenceUtils.createManager(req.getServletContext());
+        UserDAO userDAO = new UserDAOImpl(manager);
+
+        User user = null;
+        try{
+            if(username != null){
+                user = userDAO.findUserByLogin(username);
+            }
+        } finally {
+            manager.close();
+        }
+
+        if (user != null && password != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("verifiedUserName", username);
 
             resp.sendRedirect(req.getContextPath());
