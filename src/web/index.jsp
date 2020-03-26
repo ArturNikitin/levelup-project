@@ -41,6 +41,9 @@
           <form action="profile" method="get" enctype="application/x-www-form-urlencoded">
               <button type="submit">Profile</button>
           </form>
+          <form action="marketplace" method="post">
+              <button type="submit">Logout</button>
+          </form>
           </div>
       </c:otherwise>
     </c:choose>
