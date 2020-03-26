@@ -95,7 +95,7 @@ class UserDAOImplTest {
         String country = "Country";
         String city = "city";
         String street = "street";
-        int postcode = 123456;
+        String postcode = "123456";
         User user = new User("login", "email", "password");
 
         manager.getTransaction().begin();

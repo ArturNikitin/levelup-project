@@ -103,7 +103,7 @@ class ItemDAOImplTest {
         Order order = new Order();
 
         String email = "email22@gmail.com";
-        UserAddress address = new UserAddress("Country22", "City22", "Street22 15F124", 126298);
+        UserAddress address = new UserAddress("Country22", "City22", "Street22 15F124", "126298");
         order.setEmail(email);
         order.setAddress(address);
         order.setStatus(OrderStatus.PROCESSING);

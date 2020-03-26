@@ -47,7 +47,7 @@ class OrderDAOImplTest {
         String password = "1234";
 
         User user = new User(login, email, password);
-        UserAddress address = new UserAddress("Country3", "City3", "Street3 15F124", 156438);
+        UserAddress address = new UserAddress("Country3", "City3", "Street3 15F124", "156438");
         user.setAddress(address);
 
         manager.getTransaction().begin();
@@ -89,7 +89,7 @@ class OrderDAOImplTest {
     @Test
     void CreateOrder() {
         String email = "email@gmail.com";
-        UserAddress address = new UserAddress("Country2", "City2", "Street2 15F124", 156298);
+        UserAddress address = new UserAddress("Country2", "City2", "Street2 15F124", "156298");
 
         Order order = orderDAO.createOrder(email, address);
         assertNotNull(order);
@@ -104,7 +104,7 @@ class OrderDAOImplTest {
         Order order = new Order();
 
         String email = "email22@gmail.com";
-        UserAddress address = new UserAddress("Country22", "City22", "Street22 15F124", 126298);
+        UserAddress address = new UserAddress("Country22", "City22", "Street22 15F124", "126298");
         order.setEmail(email);
         order.setAddress(address);
         order.setStatus(OrderStatus.PROCESSING);
@@ -125,7 +125,7 @@ class OrderDAOImplTest {
         Order order = new Order();
 
         String email = "email12@gmail.com";
-        UserAddress address = new UserAddress("Country221", "City212", "Street212 15F124", 121298);
+        UserAddress address = new UserAddress("Country221", "City212", "Street212 15F124", "121298");
         order.setEmail(email);
         order.setAddress(address);
         order.setStatus(OrderStatus.PROCESSING);
@@ -146,7 +146,7 @@ class OrderDAOImplTest {
         Order order = new Order();
 
         String email = "email132@gmail.com";
-        UserAddress address = new UserAddress("Country3221", "City2123", "Street2132 15F124", 121398);
+        UserAddress address = new UserAddress("Country3221", "City2123", "Street2132 15F124", "121398");
         order.setEmail(email);
         order.setAddress(address);
         order.setStatus(OrderStatus.PROCESSING);
@@ -169,7 +169,7 @@ class OrderDAOImplTest {
         Order order = new Order();
 
         String email = "emai2@gmail.com";
-        UserAddress address = new UserAddress("Country31", "City23", "Street22 15F24", 121368);
+        UserAddress address = new UserAddress("Country31", "City23", "Street22 15F24", "121368");
         order.setEmail(email);
         order.setAddress(address);
         order.setStatus(OrderStatus.PROCESSING);

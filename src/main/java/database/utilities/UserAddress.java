@@ -12,14 +12,14 @@ public class UserAddress {
     private String country;
     private String city;
     private String street;
-    private int postCode;
+    private String postCode;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAddress address = (UserAddress) o;
-        return postCode == address.postCode &&
+        return postCode.equals(address.postCode) &&
                 Objects.equals(country, address.country) &&
                 Objects.equals(city, address.city) &&
                 Objects.equals(street, address.street);

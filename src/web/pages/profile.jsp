@@ -5,7 +5,9 @@
   Time: 17:41
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<jsp:useBean id="form" type="webjava.ProfileForm" scope="request"/>
+
 <html>
 <head>
     <title>${sessionScope['verifiedUserName']}</title>
@@ -25,16 +27,16 @@
     <form action="profile" method="post" enctype="application/x-www-form-urlencoded">
         <p>Add your address</p>
         <p>Country</p>
-        <input type="text" name="country">
+        <input type="text" name="country" value="${form.address.country}">
         <p>City</p>
-        <input type="text" name="City">
+        <input type="text" name="city" value="${form.address.city}">
         <p>Street</p>
-        <input type="text" name="street">
+        <input type="text" name="street" value="${form.address.street}">
         <p>Postcode</p>
-        <input type="text" name="postcode">
-    </form>
-    <form action="profile" method="post" enctype="application/x-www-form-urlencoded">
-        <button type="submit">Logout</button>
+        <input type="text" name="postcode" value="${form.address.postCode}">
+        <P>
+            <input type="submit" value="Submit">
+        </p>
     </form>
 </div>
 

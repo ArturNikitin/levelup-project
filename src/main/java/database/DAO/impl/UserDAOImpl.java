@@ -51,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
 
 //    Checked
     @Override
-    public User addAddress(User user, String country, String city, String street, int postcode) {
+    public User addAddress(User user, String country, String city, String street, String postcode) {
         UserAddress address = new UserAddress(country, city, street, postcode);
 
 

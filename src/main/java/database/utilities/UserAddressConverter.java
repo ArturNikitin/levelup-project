@@ -14,7 +14,7 @@ public class UserAddressConverter implements AttributeConverter<UserAddress, Str
         if (userAddress == null){
             return null;
         }
-        return String.format("%s/%s/%s/%d", userAddress.getCountry(), userAddress.getCity(), userAddress.getStreet(), userAddress.getPostCode());
+        return String.format("%s/%s/%s/%s", userAddress.getCountry(), userAddress.getCity(), userAddress.getStreet(), userAddress.getPostCode());
     }
 
     @Override
@@ -29,6 +29,6 @@ public class UserAddressConverter implements AttributeConverter<UserAddress, Str
         if(address.length != 4){
             throw new IllegalArgumentException("Failed to convert " + s + " to UserAddress");
         }
-        return new UserAddress(address[0], address[1], address[2], Integer.parseInt(address[3]));
+        return new UserAddress(address[0], address[1], address[2], address[3]);
     }
 }

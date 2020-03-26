@@ -44,9 +44,6 @@ public class App {
 //       items.forEach(ex -> System.out.println(ex.getName()));
 
 
-
-
-
         manager.close();
         factory.close();
     }
