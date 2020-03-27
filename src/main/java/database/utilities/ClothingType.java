@@ -1,6 +1,7 @@
 package database.utilities;
 
 public enum ClothingType {
+    OTHER,
     HAT,
     SHOES,
     SNICKERS,
@@ -10,6 +11,5 @@ public enum ClothingType {
     JACKET,
     SHIRT,
     T_SHIRT,
-    OTHER,
     ACCESSORY
 }
