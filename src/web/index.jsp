@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>marketplace</title>
+    <%--Google font--%>
+    <link href="https://fonts.googleapis.com/css?family=Gotu&display=swap" rel="stylesheet">
     <style>
         h1 {
             font-family: 'Gotu', sans-serif;
@@ -32,7 +34,7 @@
         <div class="default">
             <h1>Welcome to the Clothing market place!</h1>
             <p>Sorry, we are working on the content</p>
-            <p>Press 'Login' button to login or 'Register' button to register on our website</p>
+            <p>You can log in or sign up if you don't have an account yet</p>
             <form action="login" method="get" enctype="application/x-www-form-urlencoded">
 <%--                <button type="submit">Login</button>--%>
                 <input class="btn btn-primary" type="submit" value="Log in">
@@ -70,54 +72,3 @@
 </body>
 </html>
 
-<%--<html>
-  <head>
-      <link href="https://fonts.googleapis.com/css?family=Gotu&display=swap" rel="stylesheet">
-      <title>marketplace</title>
-      <style>
-          h1 {
-              font-family: 'Gotu', sans-serif;
-              background-color:  deepskyblue;
-          }
-          .default {
-              text-align: center;
-              width: 500px;
-              margin-left: auto;
-              margin-right: auto;
-          }
-      </style>
-  </head>
-  <body>
-    <c:choose>
-      <c:when test="${empty sessionScope['verifiedUserName']}">
-          <div class="default">
-          <h1>Welcome to the Clothing market place!</h1>
-          <p>Sorry, we are working on the content</p>
-          <p>Press 'Login' button to login or 'Register' button to register on our website</p>
-          <form action="login" method="get" enctype="application/x-www-form-urlencoded">
-              <button type="submit">Login</button>
-          </form>
-          <form action="reg" method="get" enctype="application/x-www-form-urlencoded">
-              <button type="submit">Register</button>
-          </form>
-          </div>
-      </c:when>
-      <c:otherwise>
-          <div class="default">
-          <h2>Hello, ${sessionScope['verifiedUserName']}.</h2>
-          <hr>
-          <p>What do you want to do? Maybe update your profile?</p>
-          <form action="profile" method="get" enctype="application/x-www-form-urlencoded">
-              <button type="submit">Profile</button>
-              <input class="btn btn-primary" type="submit" value="Profile">
-          </form>
-          <form action="marketplace" method="post">
-              <input class="btn btn-primary" type="submit" value="Logout">
-              <button type="submit">Logout</button>
-          </form>
-          </div>
-      </c:otherwise>
-    </c:choose>
-
-  </body>
-</html>--%>
