@@ -8,16 +8,19 @@ import database.utilities.ClothingSize;
 import database.utilities.ClothingStatus;
 import database.utilities.ClothingType;
 import database.utilities.Price;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.io.File;
 import java.util.Objects;
 
+@Repository
 public class ItemDAOImpl implements ItemDAO {
     private EntityManager manager;
 
-    public ItemDAOImpl(EntityManager manager) {
+    public ItemDAOImpl(@Autowired EntityManager manager) {
         this.manager = manager;
     }
 

@@ -4,7 +4,6 @@ import database.DAO.ItemDAO;
 import database.DAO.UserDAO;
 import database.DAO.impl.ItemDAOImpl;
 import database.DAO.impl.UserDAOImpl;
-import database.entities.Item;
 import database.entities.User;
 import database.utilities.ClothingSize;
 import database.utilities.ClothingType;
@@ -16,7 +15,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/create")

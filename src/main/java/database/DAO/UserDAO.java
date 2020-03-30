@@ -1,11 +1,6 @@
 package database.DAO;
 
-import database.entities.Item;
-import database.entities.Order;
 import database.entities.User;
-import database.utilities.UserAddress;
-
-import java.util.List;
 
 
 public interface UserDAO {

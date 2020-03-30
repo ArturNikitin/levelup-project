@@ -5,15 +5,18 @@ import database.entities.Order;
 import database.entities.User;
 import database.utilities.OrderStatus;
 import database.utilities.UserAddress;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Objects;
 
+@Repository
 public class OrderDAOImpl implements OrderDAO {
     private EntityManager manager;
 
-    public OrderDAOImpl(EntityManager manager) {
+    public OrderDAOImpl(@Autowired EntityManager manager) {
         this.manager = manager;
     }
 

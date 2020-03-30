@@ -3,15 +3,18 @@ package database.DAO.impl;
 import database.DAO.UserDAO;
 import database.entities.User;
 import database.utilities.UserAddress;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.Objects;
 
+@Repository
 public class UserDAOImpl implements UserDAO {
     private EntityManager manager;
 
-    public UserDAOImpl(EntityManager manager) {
+    public UserDAOImpl(@Autowired EntityManager manager) {
         Objects.requireNonNull(manager, "Entity manager can't be null");
         this.manager = manager;
     }
