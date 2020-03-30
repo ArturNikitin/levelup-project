@@ -25,29 +25,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
 class ItemDAOImplTest {
-//    private EntityManagerFactory factory;
     @Autowired
     private EntityManager manager;
 
     @Autowired
     ItemDAO itemDAO;
-
-    /*@BeforeEach
-    void setUp() {
-        factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
-        manager = factory.createEntityManager();
-        itemDAO = new ItemDAOImpl(manager);
-    }*/
-
-    /*@AfterEach
-    void tearDown() {
-        if(manager != null){
-            manager.close();
-        }
-        if (factory != null){
-            factory.close();
-        }
-    }*/
 
     @Test
     void createItem() {

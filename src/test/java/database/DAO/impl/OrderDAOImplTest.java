@@ -5,8 +5,6 @@ import database.entities.Order;
 import database.entities.User;
 import database.utilities.OrderStatus;
 import database.utilities.UserAddress;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,23 +24,6 @@ class OrderDAOImplTest {
 
     @Autowired
     private OrderDAO orderDAO;
-
-    /*@BeforeEach
-    void setUp() {
-        factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
-        manager = factory.createEntityManager();
-        orderDAO = new OrderDAOImpl(manager);
-    }
-
-    @AfterEach
-    void tearDown() {
-        if(manager != null){
-            manager.close();
-        }
-        if (factory != null){
-            factory.close();
-        }
-    }*/
 
     @Test
     void createOrderWithUser() {

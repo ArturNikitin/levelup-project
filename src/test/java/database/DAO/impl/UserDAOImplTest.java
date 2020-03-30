@@ -2,8 +2,6 @@ package database.DAO.impl;
 
 import database.DAO.UserDAO;
 import database.entities.User;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,31 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
 class UserDAOImplTest {
-//    private EntityManagerFactory factory;
+    //    private EntityManagerFactory factory;
     @Autowired
     private EntityManager manager;
 
     @Autowired
     private UserDAO userDAO;
 
-
-    /*@BeforeEach
-    void setUp() {
-        factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
-        manager = factory.createEntityManager();
-        userDAO = new UserDAOImpl(manager);
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (manager != null) {
-            manager.close();
-        }
-        if (factory != null) {
-            factory.close();
-        }
-    }
-*/
     @Test
     void findUserByLogin() {
         String login = "user2";
