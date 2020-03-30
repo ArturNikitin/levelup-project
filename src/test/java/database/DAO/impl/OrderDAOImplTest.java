@@ -27,8 +27,8 @@ class OrderDAOImplTest {
 
     @Test
     void createOrderWithUser() {
-        String login = "user1";
-        String email = "User@gmail.com";
+        String login = "use6434r1";
+        String email = "Use456r@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);
