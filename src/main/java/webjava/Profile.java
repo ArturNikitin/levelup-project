@@ -28,7 +28,12 @@ public class Profile extends HttpServlet {
             } finally {
               manager.close();
             }
-            ProfileForm form = new ProfileForm(new UserAddress("", "", "", ""));
+            ProfileForm form;
+            if (user.getItems() != null){
+                form = new ProfileForm(new UserAddress("", "", "", ""), user.getItems());
+            } else {
+                form = new ProfileForm(new UserAddress("", "", "", ""));
+            }
             if (user.getAddress() != null) {
                 form.setAddress(user.getAddress());
             }

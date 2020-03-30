@@ -1,5 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="form" type="webjava.ProfileForm" scope="request"/>
 
 <!doctype html>
@@ -49,6 +49,14 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </p>
     </form>
+    <div>
+        <c:if test="${not empty form.items}">
+            <c:forEach items="${form.items}" var="item">
+                ${item.name}
+            </c:forEach>
+        </c:if>
+    </div>
+
 </div>
 
 <!-- Optional JavaScript -->

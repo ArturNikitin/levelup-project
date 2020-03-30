@@ -8,6 +8,7 @@ import database.DAO.UserDAO;
 import database.DAO.impl.ItemDAOImpl;
 import database.DAO.impl.OrderDAOImpl;
 import database.DAO.impl.UserDAOImpl;
+import database.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,7 +22,7 @@ public class App {
         OrderDAO orderDAO = new OrderDAOImpl(manager);
         ItemDAO itemDAO = new ItemDAOImpl(manager);
 
-//        User user = userDAO.insertUser("black", "black@gmail.com", "1234");
+//        User user = userDAO.insertUser("testuser", "testuser@gmail.com", "1234");
 //        userDAO.updateAddress(userDAO.findUserByLogin("Artur"), new UserAddress("Russia", "SPb", "9 sovetskaya dom 10 kv 15", 194785));
 //        userDAO.updateUserPassword(userDAO.findUserByLogin("Artur"), "12345678", "123456789");
 //        System.out.println(userDAO.validatePassword(userDAO.findUserByLogin("Artur"), "123456789"));
