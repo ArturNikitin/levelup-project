@@ -5,6 +5,10 @@ import database.entities.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,13 +17,18 @@ import javax.persistence.PersistenceException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 class UserDAOImplTest {
-    private EntityManagerFactory factory;
+//    private EntityManagerFactory factory;
+    @Autowired
     private EntityManager manager;
+
+    @Autowired
     private UserDAO userDAO;
 
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         manager = factory.createEntityManager();
@@ -35,7 +44,7 @@ class UserDAOImplTest {
             factory.close();
         }
     }
-
+*/
     @Test
     void findUserByLogin() {
         String login = "user2";
@@ -56,8 +65,8 @@ class UserDAOImplTest {
 
     @Test
     void insertUser() {
-        String login = "user1";
-        String email = "User@gmail.com";
+        String login = "user194";
+        String email = "User48@gmail.com";
         String password = "1234";
 
         User user = userDAO.insertUser(login, email, password);
@@ -71,8 +80,8 @@ class UserDAOImplTest {
 
     @Test
     void insertUserDuplicate() {
-        String login = "user3";
-        String email = "Use3@gmail.com";
+        String login = "user33";
+        String email = "Us456e3@gmail.com";
         String password = "1234";
         User user = userDAO.insertUser(login, email, password);
 
@@ -115,8 +124,8 @@ class UserDAOImplTest {
 
     @Test
     void updateUserPassword() {
-        String login = "user4";
-        String email = "User4@gmail.com";
+        String login = "user44763";
+        String email = "User524@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
@@ -133,8 +142,8 @@ class UserDAOImplTest {
 
     @Test
     void updateUserPasswordWrongPassword() {
-        String login = "user4";
-        String email = "User4@gmail.com";
+        String login = "user46374";
+        String email = "User464@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
@@ -196,8 +205,8 @@ class UserDAOImplTest {
 
     @Test
     void validatePassword() {
-        String login = "user7";
-        String email = "User7@gmail.com";
+        String login = "user3527";
+        String email = "User73@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 

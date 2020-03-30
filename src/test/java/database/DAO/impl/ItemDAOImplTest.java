@@ -6,9 +6,12 @@ import database.entities.Order;
 import database.entities.User;
 import database.utilities.*;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,19 +22,24 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 class ItemDAOImplTest {
-    private EntityManagerFactory factory;
+//    private EntityManagerFactory factory;
+    @Autowired
     private EntityManager manager;
+
+    @Autowired
     ItemDAO itemDAO;
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         manager = factory.createEntityManager();
         itemDAO = new ItemDAOImpl(manager);
-    }
+    }*/
 
-    @AfterEach
+    /*@AfterEach
     void tearDown() {
         if(manager != null){
             manager.close();
@@ -39,17 +47,17 @@ class ItemDAOImplTest {
         if (factory != null){
             factory.close();
         }
-    }
+    }*/
 
     @Test
     void createItem() {
-        String name = "item1";
+        String name = "item125";
         Price price = new Price(10.15);
         ClothingSize size = ClothingSize.S;
         ClothingType type = ClothingType.JACKET;
 
-        String login = "user1";
-        String email = "User@gmail.com";
+        String login = "us1er5221";
+        String email = "Ur122425@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);
@@ -71,13 +79,13 @@ class ItemDAOImplTest {
 
     @Test
     void setType() {
-        String name = "item1";
+        String name = "item1246";
         Price price = new Price(10.15);
         ClothingSize size = ClothingSize.S;
         ClothingType type = ClothingType.JACKET;
 
-        String login = "user1";
-        String email = "User@gmail.com";
+        String login = "user1264";
+        String email = "Use3535r@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);
@@ -118,8 +126,8 @@ class ItemDAOImplTest {
         ClothingSize size = ClothingSize.S;
         ClothingType type = ClothingType.JACKET;
 
-        String login = "user1";
-        String userEmail = "User@gmail.com";
+        String login = "user176";
+        String userEmail = "User472@gmail.com";
         String password = "1234";
 
         User user = new User(login, userEmail, password);
@@ -173,13 +181,13 @@ class ItemDAOImplTest {
 
     @Test
     void findItemByName() {
-        String name = "item12";
+        String name = "item1232";
         Price price = new Price(10.15);
         ClothingSize size = ClothingSize.S;
         ClothingType type = ClothingType.JACKET;
 
-        String login = "user21";
-        String email = "User@gmail.com";
+        String login = "user217";
+        String email = "User582@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);
@@ -236,8 +244,8 @@ class ItemDAOImplTest {
         ClothingSize size = ClothingSize.S;
         ClothingType type = ClothingType.JACKET;
 
-        String login = "user214";
-        String email = "User@gmail.com";
+        String login = "user212144";
+        String email = "User352@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);
@@ -268,8 +276,8 @@ class ItemDAOImplTest {
         ClothingSize size = ClothingSize.S;
         ClothingType type = ClothingType.JACKET;
 
-        String login = "user214";
-        String email = "User@gmail.com";
+        String login = "user21490";
+        String email = "User95@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);

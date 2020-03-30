@@ -6,9 +6,12 @@ import database.entities.User;
 import database.utilities.OrderStatus;
 import database.utilities.UserAddress;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,12 +21,16 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {TestConfiguration.class})
 class OrderDAOImplTest {
-    private EntityManagerFactory factory;
+    @Autowired
     private EntityManager manager;
+
+    @Autowired
     private OrderDAO orderDAO;
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         manager = factory.createEntityManager();
@@ -38,7 +45,7 @@ class OrderDAOImplTest {
         if (factory != null){
             factory.close();
         }
-    }
+    }*/
 
     @Test
     void createOrderWithUser() {
@@ -66,8 +73,8 @@ class OrderDAOImplTest {
 
     @Test
     void createOrderWithUserWithoutAddress() {
-        String login = "user1";
-        String email = "User@gmail.com";
+        String login = "user1324";
+        String email = "Use4325r@gmail.com";
         String password = "1234";
 
         User user = new User(login, email, password);
