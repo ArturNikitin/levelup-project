@@ -52,7 +52,9 @@
     <div>
         <c:if test="${not empty form.items}">
             <c:forEach items="${form.items}" var="item">
-                ${item.name}
+               <p>
+                   ${item.name} ${item.price.price}$
+               </p>
             </c:forEach>
         </c:if>
     </div>

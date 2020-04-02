@@ -11,14 +11,19 @@ import database.utilities.Price;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+
 
 @WebServlet(urlPatterns = "/create")
 public class addProductServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getSession().getAttribute("verifiedUserName") == null) {
@@ -46,12 +51,13 @@ public class addProductServlet extends HttpServlet {
             try {
                 user = userDAO.findUserByLogin(username);
                 itemDAO.createItem(user, name, new Price(Double.parseDouble(price)), clothingSize, clothingType);
+                req.getSession().setAttribute("addedProductName", name);
             } catch (Exception e){
                 System.out.println(e.getCause());
             } finally {
                 manager.close();
             }
         }
-        resp.sendRedirect(req.getContextPath() + "/profile");
+        resp.sendRedirect(req.getContextPath() + "/photo");
     }
 }
