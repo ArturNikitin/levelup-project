@@ -57,6 +57,11 @@
                </p>
             </c:forEach>
         </c:if>
+        <c:if test="${empty form.items}">
+            <p>
+                You have no products yet :(
+            </p>
+        </c:if>
     </div>
 
 </div>

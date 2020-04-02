@@ -2,8 +2,6 @@ package webjava;
 
 import database.DAO.ItemDAO;
 import database.DAO.UserDAO;
-import database.DAO.impl.ItemDAOImpl;
-import database.DAO.impl.UserDAOImpl;
 import database.entities.User;
 import database.utilities.ClothingSize;
 import database.utilities.ClothingType;
@@ -14,14 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.EntityManager;
-import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
 
 //@WebServlet(urlPatterns = "/create")
@@ -53,12 +44,11 @@ public class AddProductController {
         ClothingSize clothingSize = ClothingSize.valueOf(size);
         String username = (String) session.getAttribute(LoginController.VERIFIED_USER_NAME);
 
-        if(username != null){
-            User user = userDAO.findUserByLogin(username);
-            itemDAO.createItem(user, name, new Price(price), clothingSize, clothingType);
-            session.setAttribute("addedProductName", name);
-        }
-        return "redirect:/";
+        User user = userDAO.findUserByLogin(username);
+        itemDAO.createItem(user, name, new Price(price), clothingSize, clothingType);
+        session.setAttribute("addedProductName", name);
+
+        return "redirect:/profile";
 //        resp.sendRedirect(req.getContextPath() + "/photo");
     }
 }

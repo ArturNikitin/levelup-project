@@ -1,6 +1,7 @@
 package database.DAO.impl;
 
 import database.DAO.UserDAO;
+import database.entities.Item;
 import database.entities.User;
 import database.utilities.UserAddress;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.util.List;
 import java.util.Objects;
 
 @Repository
@@ -20,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
-//    Checked
+
     @Override
     public User findUserByLogin(String login) {
         try {
@@ -32,7 +34,6 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-//    Checked
     @Override
     public User insertUser(String login, String email, String password) {
         User user = new User();
@@ -52,7 +53,6 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-//    Checked
     @Override
     public User addAddress(User user, String country, String city, String street, String postcode) {
         UserAddress address = new UserAddress(country, city, street, postcode);
@@ -70,7 +70,6 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-//   Checked
     @Override
     public User updateUserPassword(User user, String password, String newPassword) {
         Objects.requireNonNull(newPassword, "New password can't be null");
@@ -94,7 +93,6 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-//  Checked
     @Override
     public void removeUser(User user, String password) {
 
@@ -113,9 +111,22 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
-//    checked
     @Override
     public boolean validatePassword(User user, String password) {
         return user.getPassword().equals(password);
+    }
+
+    @Override
+    public List<Item> getItemList(User user) {
+        List<Item> items;
+        manager.getTransaction().begin();
+        try {
+            items = user.getItems();
+        } catch (Throwable cause){
+            manager.getTransaction().rollback();
+            throw cause;
+        }
+        manager.getTransaction().commit();
+        return items;
     }
 }

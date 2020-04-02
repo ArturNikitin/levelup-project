@@ -1,6 +1,8 @@
 package webjava;
 
+import database.DAO.ItemDAO;
 import database.DAO.UserDAO;
+import database.entities.Item;
 import database.entities.User;
 import database.utilities.UserAddress;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 //@WebServlet(urlPatterns = {"/profile"})
 @Controller
@@ -26,18 +29,19 @@ public class ProfileController {
         if(session.getAttribute(LoginController.VERIFIED_USER_NAME) == null ){
             return "redirect:/login";
         }
+        User user = userDAO.findUserByLogin((String) session.getAttribute(LoginController.VERIFIED_USER_NAME));
+        List<Item> items = userDAO.getItemList(user);
 
-        User user = user = userDAO.findUserByLogin((String) session.getAttribute(LoginController.VERIFIED_USER_NAME));
-
-        ProfileForm form;
-        if (user.getItems() != null){
-            form = new ProfileForm(new UserAddress("", "", "", ""), user.getItems());
-        } else {
-            form = new ProfileForm(new UserAddress("", "", "", ""));
-        }
-        if (user.getAddress() != null) {
+        ProfileForm form = new ProfileForm();
+        if (user.getAddress() != null){
             form.setAddress(user.getAddress());
+        } else
+            form.setAddress(new UserAddress("", "", "", ""));
+
+        if (items != null) {
+            form.setItems(items);
         }
+
         model.addAttribute("form", form);
         return "profile";
     }
@@ -49,17 +53,13 @@ public class ProfileController {
                                      @RequestParam String street,
                                      @RequestParam String postcode) {
         User user = userDAO.findUserByLogin((String) session.getAttribute(LoginController.VERIFIED_USER_NAME));
-        if (user == null){
-            throw new IllegalStateException("No user found");
-        }
+
         if(country == null || city == null || street == null || postcode == null){
             throw new IllegalStateException("Something is missing from Address");
         }
-        try {
-            user = userDAO.addAddress(user, country, city, street, postcode);
-        } catch (Exception e){
-            System.out.println(e.getCause());
-        }
+
+        user = userDAO.addAddress(user, country, city, street, postcode);
+
         return "redirect:/profile";
     }
 }

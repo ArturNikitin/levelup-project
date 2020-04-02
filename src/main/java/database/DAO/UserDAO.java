@@ -1,6 +1,9 @@
 package database.DAO;
 
+import database.entities.Item;
 import database.entities.User;
+
+import java.util.List;
 
 
 public interface UserDAO {
@@ -10,4 +13,5 @@ public interface UserDAO {
     User updateUserPassword(User user, String password, String newPassword);
     boolean validatePassword(User user, String password);
     void removeUser(User user, String password);
+    List<Item> getItemList(User user);
 }
