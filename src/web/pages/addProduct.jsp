@@ -59,21 +59,27 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose photo</label>
-                </div>
-            </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Description</label>
                 <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
             <P>
                 <button type="submit" class="btn btn-primary">Publish product</button>
+            </p>
+        </form>
+        <%--            фото!!--%>
+        <form action="create" method="post" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" name="photo" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" multiple accept="image/png, image/jpeg">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose photo</label>
+                </div>
+            </div>
+            <P>
+                <button type="submit" class="btn btn-primary">Add photo</button>
             </p>
         </form>
     </div>
