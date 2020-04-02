@@ -36,13 +36,11 @@
             <p>Sorry, we are working on the content</p>
             <p>You can log in or sign up if you don't have an account yet</p>
             <form action="login" method="get" enctype="application/x-www-form-urlencoded">
-<%--                <button type="submit">Login</button>--%>
                 <input class="btn btn-primary" type="submit" value="Log in">
             </form>
             <br>
             <form action="reg" method="get" enctype="application/x-www-form-urlencoded">
                 <input class="btn btn-primary" type="submit" value="Sign in">
-<%--                <button type="submit">Register</button>--%>
             </form>
         </div>
     </c:when>
