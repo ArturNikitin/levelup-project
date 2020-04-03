@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,33 +9,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>Hello, world!</title>
-
-    <%--Custom CSS--%>
-    <style>
-        #main{
-            width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
 </head>
 <body>
-<div id="main">
-    <form action="photo" method="post" enctype="multipart/form-data">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-            </div>
-            <div class="custom-file">
-                <input type="file" name="photo" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" multiple accept="image/png, image/jpeg">
-                <label class="custom-file-label" for="inputGroupFile01">Choose photo</label>
-            </div>
-        </div>
-        <P>
-            <button type="submit" class="btn btn-primary">Add photo</button>
-        </p>
-    </form>
-</div>
+<h1>Hello, world!</h1>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

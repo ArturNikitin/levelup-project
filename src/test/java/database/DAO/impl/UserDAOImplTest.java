@@ -1,7 +1,12 @@
 package database.DAO.impl;
 
 import database.DAO.UserDAO;
+import database.entities.Item;
 import database.entities.User;
+import database.utilities.ClothingSize;
+import database.utilities.ClothingStatus;
+import database.utilities.ClothingType;
+import database.utilities.Price;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +16,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +32,7 @@ class UserDAOImplTest {
 
     @Autowired
     private UserDAO userDAO;
+
 
     @Test
     void findUserByLogin() {
@@ -209,5 +218,38 @@ class UserDAOImplTest {
         manager.getTransaction().commit();
 
         assertFalse(userDAO.validatePassword(user, "password"));
+    }
+
+    @Test
+    void getItemList() {
+        String itemName = "test-item";
+        Price price = new Price(10.10);
+        ClothingSize size = ClothingSize.L;
+        ClothingType type = ClothingType.JACKET;
+        ClothingStatus status = ClothingStatus.AVAILABLE;
+
+        Item item = new Item();
+        item.setStatus(status);
+        item.setSize(size);
+        item.setType(type);
+        item.setPrice(price);
+        item.setName(itemName);
+
+        String login = "user7";
+        String email = "User7@gmail.com";
+        String password = "12345";
+
+        User user = new User(login, email, password);
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        user.setItems(items);
+
+        manager.getTransaction().begin();
+        manager.persist(user);
+        manager.getTransaction().commit();
+
+        List<Item> foundItemList = userDAO.getItemList(user);
+
+        assertEquals(item, foundItemList.get(0));
     }
 }
