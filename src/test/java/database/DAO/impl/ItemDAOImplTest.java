@@ -45,7 +45,11 @@ class ItemDAOImplTest {
         manager.persist(user);
         manager.getTransaction().commit();
 
-        Item item = itemDAO.createItem(user, name, price, size, type);
+        itemDAO.createItem(user, name, price, size, type);
+
+        User foundUser = manager.find(User.class, user.getId());
+
+        Item item = user.getItems().get(0);
 
         assertNotNull(item);
         assertEquals(name, item.getName());

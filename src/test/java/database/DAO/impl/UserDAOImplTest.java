@@ -33,7 +33,6 @@ class UserDAOImplTest {
     @Autowired
     private UserDAO userDAO;
 
-
     @Test
     void findUserByLogin() {
         String login = "user2";

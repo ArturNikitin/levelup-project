@@ -54,11 +54,7 @@ public class ProfileController {
                                      @RequestParam String postcode) {
         User user = userDAO.findUserByLogin((String) session.getAttribute(LoginController.VERIFIED_USER_NAME));
 
-        if(country == null || city == null || street == null || postcode == null){
-            throw new IllegalStateException("Something is missing from Address");
-        }
-
-        user = userDAO.addAddress(user, country, city, street, postcode);
+        userDAO.addAddress(user, country, city, street, postcode);
 
         return "redirect:/profile";
     }

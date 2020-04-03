@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
 
 //@WebServlet(urlPatterns = "/create")
 @Controller
 public class AddProductController {
+
     @Autowired
     private UserDAO userDAO;
 
