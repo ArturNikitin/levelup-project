@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Repository
@@ -34,9 +35,17 @@ public class ItemDAOImpl implements ItemDAO {
         item.setSize(size);
         item.setType(type);
 
+
         manager.getTransaction().begin();
         try {
             manager.persist(item);
+            if (user.getItems() == null) {
+                ArrayList<Item> items = new ArrayList<>();
+                items.add(item);
+                user.setItems(items);
+            } else {
+                user.getItems().add(item);
+            }
         } catch (Throwable cause){
             manager.getTransaction().rollback();
             throw cause;

@@ -34,10 +34,10 @@ public class User {
     @Convert(converter = UserAddressConverter.class)
     private UserAddress address;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Item> items;
 
     public User(String login, String email, String password){
