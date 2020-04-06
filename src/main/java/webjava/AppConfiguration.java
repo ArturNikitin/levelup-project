@@ -8,8 +8,5 @@ import javax.persistence.EntityManagerFactory;
 
 @Configuration
 public class AppConfiguration {
-    @Bean
-    public EntityManager getEntityManager(EntityManagerFactory factory){
-        return factory.createEntityManager();
-    }
+
 }

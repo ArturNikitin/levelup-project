@@ -8,24 +8,28 @@ import database.utilities.ClothingSize;
 import database.utilities.ClothingStatus;
 import database.utilities.ClothingType;
 import database.utilities.Price;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
-    private EntityManager manager;
+    /*private EntityManager manager;
 
     public ItemDAOImpl(@Autowired EntityManager manager) {
         this.manager = manager;
-    }
+    }*/
+    @PersistenceContext
+    private EntityManager manager;
 
     @Override
+    @Transactional
     public Item createItem(User user, String name, Price price, ClothingSize size, ClothingType type) {
         Item item = new Item();
         item.setName(name);
@@ -35,76 +39,38 @@ public class ItemDAOImpl implements ItemDAO {
         item.setSize(size);
         item.setType(type);
 
-
-        manager.getTransaction().begin();
-        try {
-            manager.persist(item);
-            if (user.getItems() == null) {
-                ArrayList<Item> items = new ArrayList<>();
-                items.add(item);
-                user.setItems(items);
-            } else {
-                user.getItems().add(item);
-            }
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
+        manager.persist(item);
+        if (user.getItems() == null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.add(item);
+            user.setItems(items);
+        } else {
+            user.getItems().add(item);
         }
-        manager.getTransaction().commit();
-
 
         return item;
     }
 
     @Override
+    @Transactional
     public Item setType(Item item, ClothingType type) {
         Objects.requireNonNull(type, "address can't be null");
-
-
-
-        manager.getTransaction().begin();
-        try {
-            item.setType(type);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        item.setType(type);
         return item;
     }
 
     @Override
+    @Transactional
     public Item connectToOrder(Item item, Order order) {
         Objects.requireNonNull(order, "address can't be null");
-
-
-
-        manager.getTransaction().begin();
-        try {
-            item.setOrder(order);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        item.setOrder(order);
         return item;
     }
 
     @Override
+    @Transactional
     public Item setItemStatus(Item item, ClothingStatus status) {
-
-
-        manager.getTransaction().begin();
-        try {
-            item.setStatus(status);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        item.setStatus(status);
         return item;
     }
 
@@ -121,47 +87,23 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
+    @Transactional
     public Item changeSize(Item item, ClothingSize size) {
-
-
-        manager.getTransaction().begin();
-        try {
-            item.setSize(size);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        item.setSize(size);
         return item;
     }
 
     @Override
+    @Transactional
     public Item addImage(Item item, File file) {
-        manager.getTransaction().begin();
-        try {
-            item.setFile(file);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        item.setFile(file);
         return item;
     }
 
     @Override
+    @Transactional
     public Item addDescription(Item item, String description) {
-        manager.getTransaction().begin();
-        try {
-            item.setDescription(description);
-
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        item.setDescription(description);
         return item;
     }
 }

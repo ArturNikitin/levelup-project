@@ -7,20 +7,21 @@ import database.utilities.OrderStatus;
 import database.utilities.UserAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.Objects;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO {
+    @PersistenceContext
     private EntityManager manager;
 
-    public OrderDAOImpl(@Autowired EntityManager manager) {
-        this.manager = manager;
-    }
 
     @Override
+    @Transactional
     public Order createOrderWithUser(User user) {
         Objects.requireNonNull(user.getAddress());
         Order order = new Order();
@@ -29,19 +30,12 @@ public class OrderDAOImpl implements OrderDAO {
         order.setEmail(user.getEmail());
         order.setAddress(user.getAddress());
 
-        manager.getTransaction().begin();
-        try {
-            manager.persist(order);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        manager.persist(order);
         return order;
     }
 
     @Override
+    @Transactional
     public Order createOrder(String email, UserAddress address) {
         Order order = new Order();
         order.setStatus(OrderStatus.PROCESSING);
@@ -49,53 +43,36 @@ public class OrderDAOImpl implements OrderDAO {
         order.setAddress(address);
         order.setDate(new Date());
 
-        manager.getTransaction().begin();
-        try {
-            manager.persist(order);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
-
+        manager.persist(order);
         return order;
     }
 
 
     @Override
+    @Transactional
     public Order cancelOrder(int id) {
         Order order;
-        manager.getTransaction().begin();
-        try {
-            order = manager.find(Order.class, id);
-            order.setStatus(OrderStatus.CANCELLED);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
+
+        order = manager.find(Order.class, id);
+        order.setStatus(OrderStatus.CANCELLED);
 
         return order;
     }
 
 
     @Override
+    @Transactional
     public Order updateStatusToShipped(int id) {
         Order order;
-        manager.getTransaction().begin();
-        try {
-            order = manager.find(Order.class, id);
-            order.setStatus(OrderStatus.SHIPPED);
-        } catch (Throwable cause){
-            manager.getTransaction().rollback();
-            throw cause;
-        }
-        manager.getTransaction().commit();
+
+        order = manager.find(Order.class, id);
+        order.setStatus(OrderStatus.SHIPPED);
 
         return order;
     }
 
     @Override
+    @Transactional
     public Order findOrderById(int id) {
         return manager.find(Order.class, id);
     }
