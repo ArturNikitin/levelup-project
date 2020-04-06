@@ -11,7 +11,7 @@
 <p>Данный проект представляет модель сайта покупки одежды, где пользователи 
 могут как покупать товары, так и продовать их</p>
 
-<p>В проете использованы Spring MVC, Hibernate, JUnit5, PostrgeSQL,Spring-test, spring-validation, jstl</p>
+<p>В проете использованы: Spring MVC, Hibernate, JUnit5, PostrgeSQL,Spring-test, spring-validation, jstl</p>
 
 <b>Пользователь:</b>
 
