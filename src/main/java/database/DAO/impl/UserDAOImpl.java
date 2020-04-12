@@ -73,9 +73,7 @@ public class UserDAOImpl implements UserDAO {
         if(!user.getPassword().equals(password)){
             throw new IllegalArgumentException("Password is incorrect");
         }
-
         manager.remove(user);
-        manager.getTransaction().commit();
     }
 
 

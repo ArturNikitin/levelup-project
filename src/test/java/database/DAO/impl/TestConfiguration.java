@@ -3,6 +3,7 @@ package database.DAO.impl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Component;
 import webjava.AppConfiguration;
 import webjava.ProdConfiguration;
@@ -18,15 +19,19 @@ import javax.persistence.Persistence;
             type = FilterType.ASSIGNABLE_TYPE,
             classes = {ProdConfiguration.class, WebConfiguration.class, AppConfiguration.class}
         ))
-
 public class TestConfiguration {
     @Bean
-    public EntityManagerFactory getEntityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+        bean.setPersistenceUnitName("TestPersistenceUnit");
+        return bean;
+    }
+    /*public EntityManagerFactory getEntityManagerFactory() {
         return Persistence.createEntityManagerFactory("TestPersistenceUnit");
     }
 
     @Bean
     public EntityManager entityManager(EntityManagerFactory factory) {
         return factory.createEntityManager();
-    }
+    }*/
 }

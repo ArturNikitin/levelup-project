@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.File;
 import java.util.Date;
 
@@ -22,13 +24,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @ContextConfiguration(classes = TestConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class ItemDAOImplTest {
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     @Autowired
     ItemDAO itemDAO;
 
     @Test
+    @Transactional
     void createItem() {
         String name = "item125";
         Price price = new Price(10.15);
@@ -41,15 +44,13 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         itemDAO.createItem(user, name, price, size, type);
 
         User foundUser = manager.find(User.class, user.getId());
 
-        Item item = user.getItems().get(0);
+        Item item = foundUser.getItems().get(0);
 
         assertNotNull(item);
         assertEquals(name, item.getName());
@@ -61,6 +62,7 @@ class ItemDAOImplTest {
     }
 
     @Test
+    @Transactional
     void setType() {
         String name = "item1246";
         Price price = new Price(10.15);
@@ -73,16 +75,12 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
 
         itemDAO.setType(item, ClothingType.SHIRT);
 
@@ -90,6 +88,7 @@ class ItemDAOImplTest {
     }
 
     @Test
+    @Transactional
     void connectToOrder() {
         Order order = new Order();
 
@@ -100,9 +99,7 @@ class ItemDAOImplTest {
         order.setStatus(OrderStatus.PROCESSING);
         order.setDate(new Date());
 
-        manager.getTransaction().begin();
         manager.persist(order);
-        manager.getTransaction().commit();
 
         String name = "item1";
         Price price = new Price(10.15);
@@ -115,16 +112,12 @@ class ItemDAOImplTest {
 
         User user = new User(login, userEmail, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
 
         itemDAO.connectToOrder(item, order);
 
@@ -134,6 +127,7 @@ class ItemDAOImplTest {
 
 
     @Test
+    @Transactional
     void setItemStatus() {
         String name = "item2";
         Price price = new Price(10.15);
@@ -146,16 +140,12 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
 
         item.setStatus(ClothingStatus.SOLD_OUT);
 
@@ -163,6 +153,7 @@ class ItemDAOImplTest {
     }
 
     @Test
+    @Transactional
     void findItemByName() {
         String name = "item1232";
         Price price = new Price(10.15);
@@ -175,16 +166,12 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
 
         Item foundItem = itemDAO.findItemByName(name);
         assertNotNull(foundItem);
@@ -192,6 +179,7 @@ class ItemDAOImplTest {
     }
 
     @Test
+    @Transactional
     void changeSize() {
         String name = "item12";
         Price price = new Price(103.15);
@@ -204,16 +192,16 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
+//        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
+//        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
+//        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
+//        manager.getTransaction().commit();
 
         itemDAO.changeSize(item, ClothingSize.L);
 
@@ -221,6 +209,7 @@ class ItemDAOImplTest {
     }
 
     @Test
+    @Transactional
     void addImage() {
         String name = "item23";
         Price price = new Price(104.15);
@@ -233,16 +222,12 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
 
         File file = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\Chrysanthemum.jpg");
 
@@ -253,6 +238,7 @@ class ItemDAOImplTest {
     }
 
     @Test
+    @Transactional
     void addDescription() {
         String name = "item33";
         Price price = new Price(104.15);
@@ -265,21 +251,16 @@ class ItemDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Item item = new Item(name, price, type, size, user);
         item.setStatus(ClothingStatus.AVAILABLE);
 
-        manager.getTransaction().begin();
         manager.persist(item);
-        manager.getTransaction().commit();
         String description = "This is a beautiful skirt my friend";
 
         itemDAO.addDescription(item, description);
 
         assertEquals(description, item.getDescription());
-
     }
 }

@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,13 +23,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @ContextConfiguration(classes = {TestConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class OrderDAOImplTest {
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     @Autowired
     private OrderDAO orderDAO;
 
     @Test
+    @Transactional
     void createOrderWithUser() {
         String login = "use6434r1";
         String email = "Use456r@gmail.com";
@@ -37,9 +40,7 @@ class OrderDAOImplTest {
         UserAddress address = new UserAddress("Country3", "City3", "Street3 15F124", "156438");
         user.setAddress(address);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         Order order = orderDAO.createOrderWithUser(user);
         assertNotNull(order);
@@ -52,6 +53,7 @@ class OrderDAOImplTest {
     }
 
     @Test
+    @Transactional
     void createOrderWithUserWithoutAddress() {
         String login = "user1324";
         String email = "Use4325r@gmail.com";
@@ -59,14 +61,12 @@ class OrderDAOImplTest {
 
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         try {
             Order order = orderDAO.createOrderWithUser(user);
             fail("createOrderWithUser should fail for null user's address");
-        } catch (Exception exp){
+        } catch (Exception exp) {
 
         }
 
@@ -74,6 +74,7 @@ class OrderDAOImplTest {
 
 
     @Test
+    @Transactional
     void CreateOrder() {
         String email = "email@gmail.com";
         UserAddress address = new UserAddress("Country2", "City2", "Street2 15F124", "156298");
@@ -87,6 +88,7 @@ class OrderDAOImplTest {
     }
 
     @Test
+    @Transactional
     void cancelOrder() {
         Order order = new Order();
 
@@ -97,9 +99,7 @@ class OrderDAOImplTest {
         order.setStatus(OrderStatus.PROCESSING);
         order.setDate(new Date());
 
-        manager.getTransaction().begin();
         manager.persist(order);
-        manager.getTransaction().commit();
 
         Order updatedOrder = orderDAO.cancelOrder(order.getId());
 
@@ -108,6 +108,7 @@ class OrderDAOImplTest {
     }
 
     @Test
+    @Transactional
     void updateStatusToShipped() {
         Order order = new Order();
 
@@ -118,9 +119,7 @@ class OrderDAOImplTest {
         order.setStatus(OrderStatus.PROCESSING);
         order.setDate(new Date());
 
-        manager.getTransaction().begin();
         manager.persist(order);
-        manager.getTransaction().commit();
 
         Order updatedOrder = orderDAO.updateStatusToShipped(order.getId());
 
@@ -129,6 +128,7 @@ class OrderDAOImplTest {
     }
 
     @Test
+    @Transactional
     void findOrderById() {
         Order order = new Order();
 
@@ -139,9 +139,7 @@ class OrderDAOImplTest {
         order.setStatus(OrderStatus.PROCESSING);
         order.setDate(new Date());
 
-        manager.getTransaction().begin();
         manager.persist(order);
-        manager.getTransaction().commit();
 
         Order foundOrder = orderDAO.findOrderById(order.getId());
         assertNotNull(foundOrder);
@@ -152,7 +150,8 @@ class OrderDAOImplTest {
     }
 
     @Test
-    void findOrderByIdWrongId(){
+    @Transactional
+    void findOrderByIdWrongId() {
         Order order = new Order();
 
         String email = "emai2@gmail.com";
@@ -162,15 +161,13 @@ class OrderDAOImplTest {
         order.setStatus(OrderStatus.PROCESSING);
         order.setDate(new Date());
 
-        manager.getTransaction().begin();
         manager.persist(order);
-        manager.getTransaction().commit();
 
         Order foundOrder = orderDAO.findOrderById(order.getId());
         assertNotNull(foundOrder);
         assertEquals(email, foundOrder.getEmail());
         assertEquals(address, order.getAddress());
         assertEquals(order.getStatus(), foundOrder.getStatus());
-        assertNotEquals(order.getId()+1, foundOrder.getId());
+        assertNotEquals(order.getId() + 1, foundOrder.getId());
     }
 }

@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,22 +28,21 @@ import static org.junit.jupiter.api.Assertions.*;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class UserDAOImplTest {
     //    private EntityManagerFactory factory;
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     @Autowired
     private UserDAO userDAO;
 
     @Test
+    @Transactional
     void findUserByLogin() {
         String login = "user2";
         String email = "User2@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         User found = userDAO.findUserByLogin(login);
         assertNotNull(found);
@@ -52,6 +52,7 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void insertUser() {
         String login = "user194";
         String email = "User48@gmail.com";
@@ -67,6 +68,7 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void insertUserDuplicate() {
         String login = "user33";
         String email = "Us456e3@gmail.com";
@@ -88,6 +90,7 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void updateAddress() {
         String country = "Country";
         String city = "city";
@@ -95,9 +98,7 @@ class UserDAOImplTest {
         String postcode = "123456";
         User user = new User("login", "email", "password");
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         userDAO.addAddress(user, country, city, street, postcode);
 
@@ -111,15 +112,14 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void updateUserPassword() {
         String login = "user44763";
         String email = "User524@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         String newPassword = "12345678";
         User updated = userDAO.updateUserPassword(user, password, newPassword);
@@ -129,15 +129,14 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void updateUserPasswordWrongPassword() {
         String login = "user46374";
         String email = "User464@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         String newPassword = "12345678";
         try {
@@ -149,15 +148,14 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void removeUser() {
         String login = "user5";
         String email = "User5@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         int id = user.getId();
 
@@ -169,57 +167,51 @@ class UserDAOImplTest {
     }
 
     @Test
+    @Transactional
     void removeUserIncorrectPassword() {
         String login = "user5";
         String email = "User5@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
-
-        int id = user.getId();
 
         try {
             userDAO.removeUser(user, "password");
             fail("removeUser should fail for wrong password");
         } catch (IllegalArgumentException exp) {
-
         }
-
     }
 
 
     @Test
+    @Transactional
     void validatePassword() {
         String login = "user3527";
         String email = "User73@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         assertTrue(userDAO.validatePassword(user, password));
     }
 
     @Test
+    @Transactional
     void validatePasswordWrongPassword() {
         String login = "user7";
         String email = "User7@gmail.com";
         String password = "12345";
         User user = new User(login, email, password);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         assertFalse(userDAO.validatePassword(user, "password"));
     }
 
     @Test
+    @Transactional
     void getItemList() {
         String itemName = "test-item";
         Price price = new Price(10.10);
@@ -243,9 +235,7 @@ class UserDAOImplTest {
         items.add(item);
         user.setItems(items);
 
-        manager.getTransaction().begin();
         manager.persist(user);
-        manager.getTransaction().commit();
 
         List<Item> foundItemList = userDAO.getItemList(user);
 
