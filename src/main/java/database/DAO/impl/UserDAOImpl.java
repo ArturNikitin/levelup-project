@@ -48,8 +48,9 @@ public class UserDAOImpl implements UserDAO {
     @Transactional
     public User addAddress(User user, String country, String city, String street, String postcode) {
         UserAddress address = new UserAddress(country, city, street, postcode);
-
         user.setAddress(address);
+
+        manager.merge(user);
         return user;
     }
 

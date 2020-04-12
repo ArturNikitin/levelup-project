@@ -55,9 +55,7 @@ public class User {
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(address, user.address) &&
-                Objects.equals(orders, user.orders) &&
-                Objects.equals(items, user.items);
+                Objects.equals(address, user.address);
     }
 
     @Override

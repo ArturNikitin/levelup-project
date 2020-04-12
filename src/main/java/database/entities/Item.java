@@ -73,13 +73,26 @@ public class Item {
                 status == item.status &&
                 size == item.size &&
                 Objects.equals(file, item.file) &&
-                Objects.equals(description, item.description) &&
-                Objects.equals(user, item.user) &&
-                Objects.equals(order, item.order);
+                Objects.equals(description, item.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, type, status, size, file, description, user, order);
+        return Objects.hash(id, name, price, type, status, size, file, description, order);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", type=" + type +
+                ", status=" + status +
+                ", size=" + size +
+                ", file=" + file +
+                ", description='" + description + '\'' +
+                ", order=" + order +
+                '}';
     }
 }

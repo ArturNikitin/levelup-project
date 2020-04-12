@@ -26,14 +26,14 @@ public class ProfileController {
     @GetMapping(path = "/profile")
     public String getProfileForm(HttpSession session,
                                  ModelMap model) {
-        if(session.getAttribute(LoginController.VERIFIED_USER_NAME) == null ){
+        if (session.getAttribute(LoginController.VERIFIED_USER_NAME) == null) {
             return "redirect:/login";
         }
         User user = userDAO.findUserByLogin((String) session.getAttribute(LoginController.VERIFIED_USER_NAME));
         List<Item> items = userDAO.getItemList(user);
 
         ProfileForm form = new ProfileForm();
-        if (user.getAddress() != null){
+        if (user.getAddress() != null) {
             form.setAddress(user.getAddress());
         } else
             form.setAddress(new UserAddress("", "", "", ""));

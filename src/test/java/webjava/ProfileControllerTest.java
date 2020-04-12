@@ -60,7 +60,7 @@ class ProfileControllerTest {
         ).andExpect(status().isOk())
                 .andExpect(view().name("profile"))
                 .andExpect(model().attribute("form",
-                        new ProfileForm(new UserAddress("", "", "", ""))))
+                        new ProfileForm(new UserAddress("", "", "", ""), new ArrayList<>())))
                 .andReturn();
     }
 
@@ -75,7 +75,7 @@ class ProfileControllerTest {
         ).andExpect(status().isOk())
                 .andExpect(view().name("profile"))
                 .andExpect(model().attribute("form",
-                        new ProfileForm(new UserAddress("country", "city", "street", "postcode"))))
+                        new ProfileForm(new UserAddress("country", "city", "street", "postcode"), new ArrayList<>())))
                 .andReturn();
     }
 
@@ -86,6 +86,7 @@ class ProfileControllerTest {
         Item item = itemDAO.createItem(user, "item", new Price(10.15), ClothingSize.S, ClothingType.JACKET);
         List<Item> items = new ArrayList<>();
         items.add(item);
+        System.out.println(user.getAddress());
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/profile")
