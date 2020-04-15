@@ -6,7 +6,12 @@ import database.DAO.impl.UserDAOImpl;
 import database.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +30,11 @@ public class RegistrationController {
     @Autowired
     private UserDAO userDAO;
 
+    @ModelAttribute("form")
+    public RegistrationForm createForm(){
+       return new RegistrationForm("", "", "");
+    }
+
     @GetMapping(path = "/reg")
     public String getRegistrationForm(HttpSession session) {
         if (session.getAttribute(LoginController.VERIFIED_USER_NAME) != null) {
@@ -34,14 +44,28 @@ public class RegistrationController {
     }
 
     @PostMapping(path = "/reg")
-    public String processRegistrationForm(@RequestParam("user") String login,
+    public String processRegistrationForm(
+            ModelMap model,
+            @Validated
+            @ModelAttribute("form") RegistrationForm form,
+            BindingResult validationResult
+            /*@RequestParam("user") String login,
                                           @RequestParam("email") String email,
-                                          @RequestParam String password) {
+                                          @RequestParam String password*/) {
+        if(validationResult.hasErrors()) {
+            return "reg";
+        }
+
         try {
-            User user = userDAO.insertUser(login, email, password);
-            return "redirect:/login?login=" + login;
+            User user = userDAO.insertUser(form.getLogin(), form.getEmail(), form.getPasswrod());
+            return "redirect:/login?login=" + form.getLogin();
         } catch (Exception e){
-            return "redirect:/reg";
+            validationResult.addError(
+                    new FieldError("form", "login",
+                            "User with login " + form.getLogin() + " is already established")
+            );
+
+            return "reg";
         }
 
     }

@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,12 +25,17 @@ public class User {
     private int id;
 
     @Column(nullable = false, unique = true)
+    @Size(min = 4, max = 50, message = "Login cannot be shorter than 4 and longer than 50")
+    @Pattern(regexp = "[\\w_.-0-9]*", message = "Only letters, digits and '_' '-' '.' are allowed ")
     private String login;
 
     @Column(nullable = false)
+    @Size(min = 6, max = 50, message = "Password cannot be shorter than 4 and longer than 50")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]*", message = "Password must contain at least one small character, one bi character and a number")
     private String password;
 
     @Column(nullable = false, unique = true)
+    @Email(message = "Not valid email")
     private String email;
 
     @Column

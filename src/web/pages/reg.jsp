@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,25 +24,28 @@
 
 </head>
 <body>
-
+<%--@elvariable id="form" type="webjava.RegistrationForm"--%>
 <div id="content">
     <h2 id="heading">Registration</h2>
-    <form action="reg" method="post" enctype="application/x-www-form-urlencoded">
+    <form:form modelAttribute="form" action="reg" method="post" enctype="application/x-www-form-urlencoded">
         <div class="form-group">
             <label>Login</label>
-            <input type="text" name="user" class="form-control">
+            <form:input type="text" path="login" class="form-control"/>
+            <form:errors path="login" cssStyle="color: red" />
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <form:input type="text" path="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <form:errors path="email" cssStyle="color: red" />
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+            <form:input type="password" path="passwrod" class="form-control" id="exampleInputPassword1"/>
+            <form:errors path="passwrod" cssStyle="color: red" />
         </div>
         <button type="submit" class="btn btn-primary">Sing in</button>
-    </form>
+    </form:form>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
