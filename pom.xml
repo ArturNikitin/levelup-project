@@ -11,7 +11,7 @@
     <properties>
         <lombok.version>1.18.10</lombok.version>
         <postgresql.version>42.2.5</postgresql.version>
-        <hibernate.version>5.4.14.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <java.version>11</java.version>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
